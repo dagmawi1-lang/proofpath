@@ -75,4 +75,4 @@ The Node test suite passes (7/7), including a local API integration test. A Vite
 See `docs/QA_AND_PRIVACY.md` and `docs/DEMO_SCRIPT.md`.
 
 ## License
-MIT. See `LICENSE`.
+Permission required: see [License](#license) and `LICENSE`.
