@@ -1,0 +1,18 @@
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const app = readFileSync(resolve(root, 'src/App.jsx'), 'utf8');
+const review = readFileSync(resolve(root, 'src/lib/review.js'), 'utf8');
+const match = app.match(/import\s*\{([^}]+)\}\s*from\s*['"]\.\/lib\/review\.js['"]/);
+if (!match) throw new Error('Could not find the review.js import in src/App.jsx');
+const names = match[1].split(',').map(x => x.trim()).filter(Boolean);
+const missing = names.filter(name => !new RegExp(`export\\s+(?:function|const|let|class)\\s+${name}\\b`).test(review));
+if (missing.length) throw new Error(`Missing review exports: ${missing.join(', ')}`);
+const iconMatch = app.match(/import\s*\{([^}]+)\}\s*from\s*['"]lucide-react['"]/);
+if (!iconMatch) throw new Error('Could not find lucide-react imports');
+const iconNames = iconMatch[1].split(',').map(x => x.trim()).filter(Boolean);
+const icons = await import('lucide-react');
+const missingIcons = iconNames.filter(name => !(name in icons));
+if (missingIcons.length) throw new Error(`Missing lucide-react icons: ${missingIcons.join(', ')}`);
+console.log(`✓ ${names.length} review exports and ${iconNames.length} icon exports verified.`);
