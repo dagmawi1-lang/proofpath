@@ -1,4 +1,4 @@
-# QA and privacy notes — ProofPath 1.2
+# Testing and privacy
 
 ## Automated checks
 - Node built-in unit tests cover local coach behavior, eight-point scoring, URL protocol validation, input normalization, and API request validation.
@@ -12,8 +12,8 @@
 - API keys remain server-side in `.env`; never add `.env` to version control.
 - The checklist measures process completeness, not whether a claim is true or a publisher is trustworthy.
 
-## Manual checks still required
-- Fresh-install `npm install` and Vite production build.
+## Manual test checklist
+- Fresh `npm install` and Vite production build.
 - Browser test on desktop and mobile sizes.
 - Screen-reader and keyboard review.
-- Verify external AI provider behavior only when an authorized key is configured.
+- AI coach behavior with a configured provider key.

@@ -1,6 +1,8 @@
-# ProofPath — version 1.3.0
+# ProofPath
 
-**Research with receipts.** ProofPath is a student research workspace that helps learners organize sources, write down claims, and review the evidence trail behind an argument.
+**Research with receipts.** ProofPath is a research workspace for students. It helps you organize sources, connect each one to the claim it supports or challenges, and see the evidence trail behind an argument.
+
+Built for the Education track of the [STEM2Connect AI Hackathon](https://stem2connect-online-hackathon.devpost.com/).
 
 ![Claim map: the support-vs-challenge balance for each claim, plus next research steps](docs/screenshot.jpg)
 
@@ -11,77 +13,54 @@
 - Designed the 8-point evidence checklist and the claim map
 - Found and fixed a checklist bug where unchecking a box wrote "false" into the field
 
-## Why it exists
-Students often collect links without tracking who created them, when they were published, what methods they used, or whether independent sources support the same claim. ProofPath turns those habits into a visible checklist.
+## The problem
 
-## Features in V1
-- Add and search a local research library.
-- Record source title, URL, author, publisher, date, and a specific claim.
-- Review an eight-point evidence checklist.
-- See a transparent research-process completion indicator.
-- Get practical gap suggestions from a local fallback coach.
-- Optional OpenAI-compatible AI coach when configured by the operator.
-- Export the research library as JSON.
-- Responsive interface and Node built-in tests.
+Students often collect links without tracking who wrote them, when they were published, what methods they used, or whether independent sources agree. ProofPath turns those habits into a visible checklist.
 
-## Important limitation
-The checklist is **not** a truth score, fact-check, or publisher ranking. A source can pass every checklist item and still be wrong. Students must read original sources and verify whether evidence supports the claim. The included source is fictional demo data.
+## Features
 
-## Run locally
-Requires Node.js 20.19+ (or Node.js 22+).
+- **Research library:** add, edit, search, and delete sources, each with a title, link, author, publisher, date, claim, and notes.
+- **Eight-point evidence checklist** with a completeness ring for each source.
+- **Stance:** mark each source as supporting, challenging, or giving context for its claim.
+- **Claim map:** groups sources by claim, shows the support/challenge/context balance, and suggests next research steps.
+- **Citations:** APA 7 and MLA 9 citations for each source, plus a bibliography export for the whole library.
+- **Research coach:** checklist-based suggestions that work offline, with an optional AI coach when a provider key is configured on the server.
+- **Import and export** the library as JSON.
+- Only HTTP and HTTPS links are accepted, and all input is normalized and length-limited.
+
+## Tech stack
+
+React · Vite · CSS · Node.js (built-in HTTP server and test runner)
+
+## Getting started
+
+Requires Node.js 20.19+ or 22+.
 
 ```bash
 npm install
-npm run dev
+npm run dev        # app on http://localhost:5173
+npm run server     # coach API (second terminal)
 ```
 
-In a second terminal, start the optional coach API:
+To turn on the AI coach, copy `.env.example` to `.env` and set `AI_API_KEY` (plus `AI_BASE_URL` and `AI_MODEL` if you use a provider other than the default). Any OpenAI-compatible chat-completions endpoint works. The key stays on the server. Without a key, the local checklist coach is used.
+
+To create a production build, run `npm run build`.
+
+## Testing
 
 ```bash
-npm run server
+npm run check   # import checks, server syntax checks, and the test suite
 ```
 
-To enable the external AI coach, copy `.env.example` to `.env` and set `AI_API_KEY`. The server loads `.env` itself. Without a key, the local checklist coach is used.
+Tests cover checklist scoring, URL validation, input normalization, API request validation, and the AI-provider path against a mock server.
 
-Open `http://localhost:5173`.
+## Design notes
 
-Run tests and syntax checks:
+- **The checklist measures research process, not truth.** A source can pass every item and still be wrong, so ProofPath encourages reading original sources and finding independent confirmation.
+- **Private by default.** The library lives in browser storage, with no account or remote database. The coach only receives the selected source's metadata and claim.
 
-```bash
-npm test
-npm run check
-```
-
-Build:
-
-```bash
-npm run build
-```
-
-## Input validation and API safety
-
-Source fields are normalized and bounded. Only HTTP and HTTPS links are accepted as source URLs. The optional coach API checks request content type and JSON, limits request size, uses a timeout for the external provider, and bounds returned text. The API remains a local prototype, not a production-hosted service.
-
-## Optional AI coach
-Copy `.env.example` to `.env`, add an API key for a compatible chat-completions endpoint, and set `AI_BASE_URL` and `AI_MODEL` if needed. Restart the server. Never commit `.env` or expose API keys in frontend code. Without credentials, the local checklist coach still works.
-
-## Data and privacy
-V1 stores the research library in the browser's local storage. Export creates a JSON file. Do not enter private, sensitive, or personally identifying information. No user account or remote database is included.
-
-## Technology
-React, Vite, plain CSS, Node.js built-in HTTP server, and Node's built-in test runner.
-
-## Optional AI coach
-The optional AI coach calls a configured OpenAI-compatible API; without configuration, it uses deterministic local checklist logic.
-
-## Third-party assets
-Lucide React icons and Google Fonts are used. Verify current licenses and disclose them in the final Devpost entry. The demo source record is fictional and uses an example.edu URL.
-
-## Verification status
-
-The Node test suite passes (7/7), including a local API integration test. A Vite production build still needs a fresh dependency install on the target platform; the development workspace could not use the platform-specific Vite native binding from the reference project archive.
-
-See `docs/QA_AND_PRIVACY.md` and `docs/DEMO_SCRIPT.md`.
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/QA_AND_PRIVACY.md`](docs/QA_AND_PRIVACY.md).
 
 ## License
-Permission required: see [License](#license) and `LICENSE`.
+
+**Permission required.** © 2026 Dagmawi Melaku. You need my written permission before using, copying, or modifying this code, and any approved use must credit me with a link to this repository. Viewing, forking on GitHub, and running it to judge or review a submission are allowed without asking. To ask, [open an issue](../../issues/new). See [LICENSE](LICENSE) for the full terms.

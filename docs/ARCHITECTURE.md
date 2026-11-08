@@ -4,7 +4,7 @@
 - `src/lib/review.js`: shared checklist and local coach logic.
 - `server/index.js`: minimal optional AI API proxy; API keys stay server-side.
 - `server/review.js`: local fallback coach logic.
-- `tests/review.test.js`: core logic tests.
+- `tests/`: unit and API tests.
 - Browser local storage persists the demo library; no account or cloud database.
 
 ## Request flow
