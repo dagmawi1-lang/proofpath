@@ -71,8 +71,8 @@ V1 stores the research library in the browser's local storage. Export creates a 
 ## Technology
 React, Vite, plain CSS, Node.js built-in HTTP server, and Node's built-in test runner.
 
-## AI disclosure template
-This project was developed with AI assistance. Before submitting, replace this paragraph with the actual tools used, what work they contributed, and which features are AI-powered. The optional AI coach calls a configured OpenAI-compatible API; without configuration, it uses deterministic local checklist logic. Do not claim an AI integration was active in the demo unless it was.
+## Optional AI coach
+The optional AI coach calls a configured OpenAI-compatible API; without configuration, it uses deterministic local checklist logic.
 
 ## Third-party assets
 Lucide React icons and Google Fonts are used. Verify current licenses and disclose them in the final Devpost entry. The demo source record is fictional and uses an example.edu URL.
