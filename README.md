@@ -2,6 +2,15 @@
 
 **Research with receipts.** ProofPath is a student research workspace that helps learners organize sources, write down claims, and review the evidence trail behind an argument.
 
+![Claim map: the support-vs-challenge balance for each claim, plus next research steps](docs/screenshot.jpg)
+
+## My role & contributions
+
+**Solo developer · AI-assisted**
+
+- Designed the 8-point evidence checklist and the claim map
+- Found and fixed a checklist bug where unchecking a box wrote "false" into the field
+
 ## Why it exists
 Students often collect links without tracking who created them, when they were published, what methods they used, or whether independent sources support the same claim. ProofPath turns those habits into a visible checklist.
 
